@@ -6,6 +6,8 @@ using namespace std;
 void kostkacout(char[6][9]);
 void obrotwiersza(char[6][9],int Y);
 void obrotkolumny(char[6][9],int Y);
+bool warunekskonczenia(char[6][9]);
+void mieszanko(char[6][9]);
 
 char kostka[6][9]{
 		{'R','R','R','R','R','R','R','R','R'},
@@ -24,15 +26,17 @@ int main()
 {
 	cout << "Powodzenia" << endl << endl;
 	
+	mieszanko(kostka);
 
 	kostkacout(kostka);
 	
 	cout << endl;
 	cout << "Aby wykonac ruch kostka wybierz najpierw wiersz(1,2,3) lub kolumne(4,5,6), ktora chcesz obrocic." << endl;
-	cout << "Nastepnie kierunek w ktorym chcesz obrocic dany wiersz/kolumne. Gdy wiersz to L - aby obrocic w lewo, P - aby obrocic w prawo). Gdy kolumna to G - w gore, D - w dol." << endl << endl;
+	cout << "Nastepnie kierunek w ktorym chcesz obrocic dany wiersz/kolumne. Gdy wiersz to L - aby obrocic w lewo, P - aby obrocic w prawo. Gdy kolumna to G - w gore, D - w dol." << endl << endl;
 	
 
-	
+	while(warunekskonczenia(kostka)!=1)
+	{
 	cout << "Wybierz wiersz(1-3) badz kolumne(4-6): ";
 	int Y=0;
 	cin >> Y;
@@ -51,7 +55,12 @@ int main()
 	}
 	cout << endl << endl;
 	kostkacout(kostka);
+	cout<< endl << endl;
+	}
 	
+	cout << endl << endl;
+	cout << "GRATULACJE, DOKONALES/AS NIEMOZLIWEGO!" << endl << endl;
+	kostkacout(kostka);
 	
 }
 
@@ -312,9 +321,9 @@ void obrotwiersza(char tablica[6][9],int Y){
 
 void obrotkolumny(char tablica[6][9],int Y){
 	cout << "Podaj kierunek obrotu (G/D): ";
-	char F=0;
-	cin >> F;
-	switch(F){
+	char X=0;
+	cin >> X;
+	switch(X){
 		case 'G':
 		case 'g':
 				if(Y==4)
@@ -331,7 +340,21 @@ void obrotkolumny(char tablica[6][9],int Y){
 						tablica[5][j]=bufor[1];
 						tablica[2][j]=bufor[2];
 					}
+					
+					for(int z=0;z<=8;z++)
+					{
+					bufor2[z]=tablica[1][z];
+					}
+					tablica[1][0]=bufor2[2];
+					tablica[1][1]=bufor2[5];
+					tablica[1][2]=bufor2[8];
+					tablica[1][3]=bufor2[1];
+					tablica[1][5]=bufor2[7];
+					tablica[1][6]=bufor2[0];
+					tablica[1][7]=bufor2[3];
+					tablica[1][8]=bufor2[6];
 				}
+				
 				else if(Y==5)
 				{
 					for(int j=1;j<=7;j=j+3)
@@ -361,7 +384,21 @@ void obrotkolumny(char tablica[6][9],int Y){
 						tablica[5][j]=bufor[1];
 						tablica[2][j]=bufor[2];
 					}
+					
+					for(int z=0;z<=8;z++)
+					{
+					bufor2[z]=tablica[3][z];
+					}
+					tablica[3][0]=bufor2[6];
+					tablica[3][1]=bufor2[3];
+					tablica[3][2]=bufor2[0];
+					tablica[3][3]=bufor2[7];
+					tablica[3][5]=bufor2[1];
+					tablica[3][6]=bufor2[8];
+					tablica[3][7]=bufor2[5];
+					tablica[3][8]=bufor2[2];
 				}
+				
 				break;
 		case 'D':
 		case 'd':
@@ -379,7 +416,21 @@ void obrotkolumny(char tablica[6][9],int Y){
 					tablica[0][j]=bufor[1];
 					tablica[2][j]=bufor[2];
 					}
-				}	
+					
+					for(int z=0;z<=8;z++)
+					{
+					bufor2[z]=tablica[1][z];
+					}
+					tablica[1][0]=bufor2[6];
+					tablica[1][1]=bufor2[3];
+					tablica[1][2]=bufor2[0];
+					tablica[1][3]=bufor2[7];
+					tablica[1][5]=bufor2[1];
+					tablica[1][6]=bufor2[8];
+					tablica[1][7]=bufor2[5];
+					tablica[1][8]=bufor2[2];
+				}
+					
 				else if(Y==5)
 				{
 					for(int j=1;j<=7;j=j+3)
@@ -409,8 +460,48 @@ void obrotkolumny(char tablica[6][9],int Y){
 					tablica[0][j]=bufor[1];
 					tablica[2][j]=bufor[2];
 					}
+					
+					for(int z=0;z<=8;z++)
+					{
+					bufor2[z]=tablica[3][z];
+					}
+					tablica[3][0]=bufor2[2];
+					tablica[3][1]=bufor2[5];
+					tablica[3][2]=bufor2[8];
+					tablica[3][3]=bufor2[1];
+					tablica[3][5]=bufor2[7];
+					tablica[3][6]=bufor2[0];
+					tablica[3][7]=bufor2[3];
+					tablica[3][8]=bufor2[6];
+					
 				}
 				break;		
 	}
 }
+
+bool warunekskonczenia(char tablica[6][9]){
+	char szakalaka=0;
+	
+	for(int i=0;i<=5;i++)
+	{
+		szakalaka=tablica[i][0];
+		
+		for(int j=0;j<=8;j++)
+		{
+			if(szakalaka!=tablica[i][j])
+			{
+				return 0;
+			}
+		}
+	}
+	return 1;	
+}
+
+void mieszanko(char tablica[6][9])
+{
+	srand(time(NULL));
+	int i, j;
+	i=rand()%51;
+}
+
 
