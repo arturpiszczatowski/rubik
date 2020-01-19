@@ -497,11 +497,41 @@ bool warunekskonczenia(char tablica[6][9]){
 	return 1;	
 }
 
-void mieszanko(char tablica[6][9])
-{
+void mieszanko(char tablica[6][9]){
+	char tablica2[6][9]={};
+	
+	for(int i=0;i<=5;i++)
+	{
+		for(int j=0;j<=8;j++)
+		{
+			tablica2[i][j]=tablica[i][j];
+			tablica[i][j]=0;
+		}
+	}
+	
 	srand(time(NULL));
-	int i, j;
-	i=rand()%51;
+	
+	for(int a=0;a<=5;a++)
+	{
+		for(int b=0;b<=8;b++)
+		{
+			niepyklo:
+				
+			int i, j=0;
+			i=rand()%6;
+			j=rand()%9;
+			
+			if(tablica2[i][j]!=0)
+			{
+				tablica[a][b]=tablica2[i][j];
+				tablica2[i][j]=0;
+			}
+			else
+			{
+				goto niepyklo;
+			}
+		}
+	}
 }
 
 
